@@ -37,5 +37,19 @@ app.MapGet("/api/quizzes", (IQuizRepository repository) =>
     }
 });
 
+app.MapGet("/api/quizzes/{id}", (int id, IQuizRepository repository) =>
+{
+    var quiz = QuizRepository.GetQuizById(id);
+    if (quiz == null)
+    {
+        return Results.NotFound();
+    }
+    else
+    {
+        return Results.Ok(quiz);
+    }
+});
+    
+
 app.Run();
 

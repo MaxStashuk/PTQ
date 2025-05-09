@@ -48,7 +48,17 @@ public class QuizRepository : IQuizRepository
             }
             return quizzes;
         }
+    }
+
+    public Quiz GetQuizById(int quizId)
+    {
+        string Query = "SELECT * FROM Quiz WHERE Id = @quizId";
         
-        throw new NotImplementedException();
+        SqlCommand command = new SqlCommand(Query);
+        command.Parameters.AddWithValue("@quizId", quizId);
+        SqlConnection connection = new SqlConnection(_connectionString);
+        connection.Open();
+        Quiz q = command.ExecuteScalar();
+        
     }
 }
